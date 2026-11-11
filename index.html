@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aroosh's Metric Adventure: From km to mm!</title>
+<style>
+  @import url('https://googleapis.com');
+
+  :root {
+    --bg: #f0f7ff;
+    --card: #ffffff;
+    --primary: #4f46e5;
+    --secondary: #06b6d4;
+    --accent: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --text: #1e293b;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    animation: slideDown 0.7s ease-out;
+  }
+
+  h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-shadow: 2px 2px 0px #c7d2fe;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: #475569;
+    background: rgba(255, 255, 255, 0.7);
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .subtitle strong {
+    color: var(--accent);
+  }
+
+  /* Navigation Tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #64748b;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover {
+    transform: translateY(-3px);
+  }
+
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+  }
+
+  /* Tab Content */
+  .tab-content {
+    display: none;
+    background: var(--card);
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* TAB 1: THE METRIC LADDER */
+  .ladder-intro {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+  }
+
+  .ladder-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    padding: 10px 0;
+  }
+
+  .step-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-card:hover {
+    transform: scale(1.02) translateX(6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .step-km { background: linear-gradient(135deg, #6366f1, #4f46e5); width: 100%; }
+  .step-m  { background: linear-gradient(135deg, #06b6d4, #0284c7); width: 92%; margin-left: auto; }
+  .step-dm { background: linear-gradient(135deg, #10b981, #059669); width: 84%; margin-left: auto; }
+  .step-cm { background: linear-gradient(135deg, #f59e0b, #d97706); width: 76%; margin-left: auto; }
+  .step-mm { background: linear-gradient(135deg, #ec4899, #db2777); width: 68%; margin-left: auto; }
+
+  .step-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .step-icon {
+    font-size: 2.3rem;
+    background: rgba(255,255,255,0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounceSlow 3s infinite ease-in-out;
+  }
+
+  .step-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.4rem;
+  }
+
+  .step-desc {
+    font-size: 0.95rem;
+    opacity: 0.95;
+  }
+
+  .step-badge {
+    background: rgba(255,255,255,0.25);
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  /* Jump Connectors */
+  .jump-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin: -6px 20px;
+    z-index: 2;
+  }
+
+  .jump-pill {
+    background: #fef3c7;
+    color: #b45309;
+    border: 2px solid #f59e0b;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    animation: pulse 2s infinite;
+  }
+
+  .detail-box {
+    margin-top: 25px;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .detail-box h3 {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  /* TAB 2: EXAMPLES & AROOSH'S DISCOVERY */
+  .discovery-banner {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-left: 6px solid #f59e0b;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .discovery-emoji {
+    font-size: 3rem;
+    animation: wiggle 2s infinite;
+  }
+
+  .visual-ruler-box {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .ruler {
+    height: 60px;
+    background: #fde047;
+    border: 3px solid #ca8a04;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 600px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    align-items: flex-end;
+    box-shadow: 0 6px 15px rgba(202, 138, 4, 0.2);
+  }
+
+  .tick-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tick-line {
+    width: 3px;
+    height: 22px;
+    background: #854d0e;
+  }
+
+  .tick-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #854d0e;
+    margin-bottom: 4px;
+  }
+
+  .converter-box {
+    background: #eef2ff;
+    padding: 22px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .converter-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+  }
+
+  input[type="number"], select {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    border-radius: 14px;
+    border: 2px solid #c7d2fe;
+    outline: none;
+    text-align: center;
+  }
+
+  .result-display {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-top: 10px;
+    padding: 12px;
+    background: white;
+    border-radius: 14px;
+    display: inline-block;
+    min-width: 260px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  /* TAB 3: QUIZ */
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-radius: 16px;
+  }
+
+  .score-badge {
+    font-family: 'Fredoka', sans-serif;
+    background: var(--success);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+  }
+
+  .question-card {
+    text-align: center;
+    padding: 20px 10px;
+  }
+
+  .question-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: var(--text);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .option-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.25rem;
+    padding: 18px;
+    border: 3px solid #e2e8f0;
+    border-radius: 18px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: #eef2ff;
+    transform: translateY(-3px);
+  }
+
+  .option-btn.correct {
+    background: #d1fae5;
+    border-color: var(--success);
+    color: #065f46;
+    animation: pop 0.4s ease;
+  }
+
+  .option-btn.wrong {
+    background: #fee2e2;
+    border-color: var(--danger);
+    color: #991b1b;
+    animation: shake 0.4s ease;
+  }
+
+  .feedback-msg {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    min-height: 32px;
+  }
+
+  .next-btn {
+    margin-top: 20px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+    display: none;
+  }
+
+  .next-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* Animations */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  /* Confetti Canvas */
+  #confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  @media (max-width: 650px) {
+    .step-km, .step-m, .step-dm, .step-cm, .step-mm { width: 100%; }
+    h1 { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+  <header>
+    <h1>🚀 Aroosh's Metric Adventure</h1>
+    <div class="subtitle">From giant <strong>Kilometers (km)</strong> down to tiny <strong>Millimeters (mm)</strong>!</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('ladder', this)">🪜 1. The Metric Ladder</button>
+    <button class="tab-btn" onclick="switchTab('examples', this)">🥞 2. Breakfast & Examples</button>
+    <button class="tab-btn" onclick="switchTab('quiz', this)">🏆 3. Aroosh's Quiz</button>
+  </div>
+
+  <!-- TAB 1: THE METRIC LADDER -->
+  <div id="ladder" class="tab-content active">
+    <p class="ladder-intro">Click on any step of the ladder to inspect how big it is!</p>
+
+    <div class="ladder-wrapper">
+      <!-- KM -->
+      <div class="step-card step-km" onclick="showDetail('km')">
+        <div class="step-left">
+          <div class="step-icon">🚗</div>
+          <div>
+            <div class="step-title">Kilometer (km)</div>
+            <div class="step-desc">For long car trips & airplane paths</div>
+          </div>
+        </div>
+        <div class="step-badge">1 km = 1,000 m</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 1,000 (Add 3 zeros!)</span></div>
+
+      <!-- M -->
+      <div class="step-card step-m" onclick="showDetail('m')">
+        <div class="step-left">
+          <div class="step-icon">🚪</div>
+          <div>
+            <div class="step-title">Meter (m)</div>
+            <div class="step-desc">Height of a door or a big step</div>
+          </div>
+        </div>
+        <div class="step-badge">1 m = 10 dm = 100 cm</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+
+      <!-- DM -->
+      <div class="step-card step-dm" onclick="showDetail('dm')">
+        <div class="step-left">
+          <div class="step-icon">📱</div>
+          <div>
+            <div class="step-title">Decimeter (dm)</div>
+            <div class="step-desc">About the width of your hand or a phone</div>
+          </div>
+        </div>
+        <div class="step-badge">1 dm = 10 cm</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+
+      <!-- CM -->
+      <div class="step-card step-cm" onclick="showDetail('cm')">
+        <div class="step-left">
+          <div class="step-icon">🖍️</div>
+          <div>
+            <div class="step-title">Centimeter (cm)</div>
+            <div class="step-desc">Width of your fingernail or a crayon</div>
+          </div>
+        </div>
+        <div class="step-badge">1 cm = 10 mm</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+
+      <!-- MM -->
+      <div class="step-card step-mm" onclick="showDetail('mm')">
+        <div class="step-left">
+          <div class="step-icon">🐜</div>
+          <div>
+            <div class="step-title">Millimeter (mm)</div>
+            <div class="step-desc">Tiny! Thickness of a coin or a small ant</div>
+          </div>
+        </div>
+        <div class="step-badge">Smallest step here!</div>
+      </div>
+    </div>
+
+    <div class="detail-box" id="detail-box">
+      <h3>👆 Tap any step above!</h3>
+      <p>Every time you step <strong>down</strong> from m → dm → cm → mm, you multiply by <strong>10</strong>. Going from km → m is a giant leap of <strong>1,000</strong>!</p>
+    </div>
+  </div>
+
+  <!-- TAB 2: EXAMPLES & CONVERTER -->
+  <div id="examples" class="tab-content">
+    <div class="discovery-banner">
+      <div class="discovery-emoji">🥞</div>
+      <div>
+        <h3 style="font-family: 'Fredoka', sans-serif; color: #b45309; font-size: 1.35rem;">Aroosh's Breakfast Discovery!</h3>
+        <p style="margin-top: 4px; font-size: 1.05rem;">
+          This morning before breakfast, Aroosh spotted a super math secret: <strong>150 mm = 15 cm</strong>! 
+          Because <strong>10 mm = 1 cm</strong>, dividing by 10 (chopping off one zero) turns millimeters into centimeters!
+        </p>
+      </div>
+    </div>
+
+    <div class="visual-ruler-box">
+      <h3 style="font-family: 'Fredoka', sans-serif; color: #334155;">📏 Look at Aroosh's 15 cm Ruler</h3>
+      <p style="font-size: 0.95rem; color: #64748b;">Every 1 cm block has 10 tiny millimeter lines inside it!</p>
+      <div class="ruler">
+        <div class="tick-group"><span class="tick-label">0 cm<br>(0 mm)</span><div class="tick-line"></div></div>
+        <div class="tick-group"><span class="tick-label">3 cm<br>(30 mm)</span><div class="tick-line"></div></div>
+        <div class="tick-group"><span class="tick-label">6 cm<br>(60 mm)</span><div class="tick-line"></div></div>
+        <div class="tick-group"><span class="tick-label">9 cm<br>(90 mm)</span><div class="tick-line"></div></div>
+        <div class="tick-group"><span class="tick-label">12 cm<br>(120 mm)</span><div class="tick-line"></div></div>
+        <div class="tick-group"><span class="tick-label" style="color:#dc2626;">15 cm<br>(150 mm)</span><div class="tick-line" style="background:#dc2626; height:28px;"></div></div>
+      </div>
+    </div>
+
+    <div class="converter-box">
+      <h3 style="font-family: 'Fredoka', sans-serif; color: var(--primary); font-size: 1.4rem;">🔮 Magic Metric Machine</h3>
+      <p>Type any number to see how it changes across units!</p>
+      <div class="converter-controls">
+        <input type="number" id="conv-input" value="150" oninput="convertUnits()">
+        <select id="conv-from" onchange="convertUnits()">
+          <option value="km">Kilometers (km)</option>
+          <option value="m">Meters (m)</option>
+          <option value="dm">Decimeters (dm)</option>
+          <option value="cm">Centimeters (cm)</option>
+          <option value="mm" selected>Millimeters (mm)</option>
+        </select>
+        <span style="font-weight: 800; font-size: 1.2rem;">➡️</span>
+        <select id="conv-to" onchange="convertUnits()">
+          <option value="km">Kilometers (km)</option>
+          <option value="m">Meters (m)</option>
+          <option value="dm">Decimeters (dm)</option>
+          <option value="cm" selected>Centimeters (cm)</option>
+          <option value="mm">Millimeters (mm)</option>
+        </select>
+      </div>
+      <div class="result-display" id="conv-result">150 mm = 15 cm</div>
+    </div>
+  </div>
+
+  <!-- TAB 3: QUIZ -->
+  <div id="quiz" class="tab-content">
+    <div class="quiz-header">
+      <span id="q-progress" style="font-weight: 800; color: #475569;">Question 1 of 6</span>
+      <span class="score-badge">⭐ Score: <span id="q-score">0</span></span>
+    </div>
+
+    <div class="question-card" id="quiz-body">
+      <div class="question-text" id="question-text">Loading question...</div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="feedback-msg" id="feedback-msg"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question ➡️</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Tab Switching
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Ladder Details
+  const details = {
+    km: {
+      title: "🚗 Kilometer (km) — The Giant Explorer",
+      text: "1 km = 1,000 meters! If you walk for about 12 minutes, you walk 1 kilometer. Cars measure highway distances in km."
+    },
+    m: {
+      title: "🚪 Meter (m) — The Everyday Standard",
+      text: "1 m = 10 dm = 100 cm = 1,000 mm! A standard doorway is about 2 meters tall, and a guitar is about 1 meter long."
+    },
+    dm: {
+      title: "📱 Decimeter (dm) — The Handy Bridge",
+      text: "1 dm = 10 cm = 100 mm! 'Deci' means one-tenth. Ten decimeters make 1 whole meter!"
+    },
+    cm: {
+      title: "🖍️ Centimeter (cm) — School Ruler Favorite",
+      text: "1 cm = 10 mm! Your pinky fingernail is about 1 cm wide. A new pencil is around 18 cm long."
+    },
+    mm: {
+      title: "🐜 Millimeter (mm) — Tiny Precision",
+      text: "10 mm = 1 cm! A stack of 10 sheets of paper or a credit card is about 1 millimeter thick."
+    }
+  };
+
+  function showDetail(unit) {
+    const box = document.getElementById('detail-box');
+    box.innerHTML = `<h3>${details[unit].title}</h3><p style="font-size:1.05rem;">${details[unit].text}</p>`;
+    box.style.borderColor = "#4f46e5";
+    box.style.background = "#eef2ff";
+  }
+
+  // Converter Logic
+  const toMeters = {
+    km: 1000,
+    m: 1,
+    dm: 0.1,
+    cm: 0.01,
+    mm: 0.001
+  };
+
+  function convertUnits() {
+    const val = parseFloat(document.getElementById('conv-input').value);
+    const from = document.getElementById('conv-from').value;
+    const to = document.getElementById('conv-to').value;
+    const resBox = document.getElementById('conv-result');
+
+    if (isNaN(val)) {
+      resBox.innerText = "Type a number above!";
+      return;
+    }
+
+    const inMeters = val * toMeters[from];
+    const converted = +(inMeters / toMeters[to]).toPrecision(10);
+    resBox.innerText = `${val.toLocaleString()} ${from} = ${converted.toLocaleString()} ${to}`;
+  }
+
+  // Quiz Data
+  const questions = [
+    {
+      q: "🥞 Warm-up: Just like Aroosh discovered this morning, 150 mm is equal to how many cm?",
+      options: ["1.5 cm", "15 cm", "1,500 cm", "150 cm"],
+      answer: 1,
+      fact: "Spot on! 150 ÷ 10 = 15 cm!"
+    },
+    {
+      q: "🚗 How many meters (m) are inside 1 kilometer (km)?",
+      options: ["10 m", "100 m", "1,000 m", "10,000 m"],
+      answer: 2,
+      fact: "Awesome! 'Kilo' always means 1,000!"
+    },
+    {
+      q: "📱 How many centimeters (cm) make 1 decimeter (dm)?",
+      options: ["10 cm", "50 cm", "100 cm", "1,000 cm"],
+      answer: 0,
+      fact: "Yes! 1 dm = 10 cm!"
+    },
+    {
+      q: "🐜 A tiny ladybug is 8 mm long. How many mm are in 3 cm?",
+      options: ["3 mm", "30 mm", "300 mm", "3,000 mm"],
+      answer: 1,
+      fact: "Great job! Since 1 cm = 10 mm, 3 cm = 30 mm!"
+    },
+    {
+      q: "🚪 A door is 2 meters (m) tall. How many centimeters (cm) is that?",
+      options: ["20 cm", "200 cm", "2,000 cm", "20,000 cm"],
+      answer: 1,
+      fact: "Boom! 1 m = 100 cm, so 2 m = 200 cm!"
+    },
+    {
+      q: "🚀 Master Challenge: Which order goes from BIGGEST to SMALLEST?",
+      options: [
+        "mm → cm → dm → m → km",
+        "km → m → cm → dm → mm",
+        "km → m → dm → cm → mm",
+        "m → km → dm → cm → mm"
+      ],
+      answer: 2,
+      fact: "Champion! km → m → dm → cm → mm is the exact metric ladder!"
+    }
+  ];
+
+  let currentQ = 0;
+  let score = 0;
+
+  function loadQuestion() {
+    const q = questions[currentQ];
+    document.getElementById('q-progress').innerText = `Question ${currentQ + 1} of ${questions.length}`;
+    document.getElementById('question-text').innerText = q.q;
+    document.getElementById('feedback-msg').innerText = "";
+    document.getElementById('next-btn').style.display = "none";
+
+    const grid = document.getElementById('options-grid');
+    grid.innerHTML = "";
+
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerText = opt;
+      btn.onclick = () => checkAnswer(idx, btn);
+      grid.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(selectedIdx, btn) {
+    const q = questions[currentQ];
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    const feedback = document.getElementById('feedback-msg');
+
+    if (selectedIdx === q.answer) {
+      btn.classList.add('correct');
+      score++;
+      document.getElementById('q-score').innerText = score;
+      feedback.style.color = "#059669";
+      feedback.innerText = "🎉 " + q.fact;
+      launchConfetti();
+    } else {
+      btn.classList.add('wrong');
+      buttons[q.answer].classList.add('correct');
+      feedback.style.color = "#dc2626";
+      feedback.innerText = "💡 Not quite! " + q.fact;
+    }
+
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.innerText = currentQ === questions.length - 1 ? "See Final Trophy 🏆" : "Next Question ➡️";
+    nextBtn.style.display = "inline-block";
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    if (currentQ < questions.length) {
+      loadQuestion();
+    } else {
+      showFinalScreen();
+    }
+  }
+
+  function showFinalScreen() {
+    launchConfetti();
+    const quizBody = document.getElementById('quiz-body');
+    quizBody.innerHTML = `
+      <div style="font-size: 4rem; margin-bottom: 10px;">🏆</div>
+      <h2 style="font-family: 'Fredoka', sans-serif; color: var(--primary); font-size: 2rem;">Way to go, Aroosh!</h2>
+      <p style="font-size: 1.3rem; margin: 15px 0;">You scored <strong>${score} out of ${questions.length}</strong>!</p>
+      <p style="color: #64748b; margin-bottom: 25px;">You have officially mastered the Metric Ladder from Kilometers to Millimeters!</p>
+      <button class="next-btn" style="display:inline-block;" onclick="restartQuiz()">Play Again 🔄</button>
+    `;
+  }
+
+  function restartQuiz() {
+    currentQ = 0;
+    score = 0;
+    document.getElementById('q-score').innerText = 0;
+    document.getElementById('quiz-body').innerHTML = `
+      <div class="question-text" id="question-text"></div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="feedback-msg" id="feedback-msg"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question ➡️</button>
+    `;
+    loadQuestion();
+  }
+
+  // Simple Confetti Effect
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = Array.from({ length: 60 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      size: Math.random() * 8 + 5,
+      color: ['#4f46e5', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random() * 5)],
+      speed: Math.random() * 4 + 2
+    }));
+
+    let frame = 0;
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        p.y += p.speed;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      });
+      frame++;
+      if (frame < 90) requestAnimationFrame(animate);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    animate();
+  }
+
+  // Initialize Quiz
+  loadQuestion();
+</script>
+</body>
+</html>
