@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aroosh's Metric Adventure: From km to mm!</title>
+<title>Aroosh's Complete Metric Adventure: From km to mm!</title>
 <style>
   @import url('https://googleapis.com');
 
@@ -34,7 +34,7 @@
   }
 
   .container {
-    max-width: 900px;
+    max-width: 920px;
     margin: 0 auto;
   }
 
@@ -47,18 +47,18 @@
 
   h1 {
     font-family: 'Fredoka', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     color: var(--primary);
     text-shadow: 2px 2px 0px #c7d2fe;
     margin-bottom: 8px;
   }
 
   .subtitle {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: #475569;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     display: inline-block;
-    padding: 8px 18px;
+    padding: 8px 20px;
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
@@ -117,57 +117,67 @@
     display: block;
   }
 
-  /* TAB 1: THE METRIC LADDER */
+  /* TAB 1: THE 7-STEP METRIC LADDER */
   .ladder-intro {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-size: 1.1rem;
+  }
+
+  .mnemonic-banner {
+    background: #eef2ff;
+    border: 2px solid #c7d2fe;
+    border-radius: 16px;
+    padding: 12px 18px;
+    text-align: center;
+    margin-bottom: 22px;
+    font-size: 1.05rem;
+    color: #3730a3;
   }
 
   .ladder-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
     position: relative;
-    padding: 10px 0;
   }
 
   .step-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
-    border-radius: 20px;
+    padding: 14px 20px;
+    border-radius: 18px;
     color: white;
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
   }
 
   .step-card:hover {
-    transform: scale(1.02) translateX(6px);
+    transform: scale(1.02) translateX(5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   }
 
-  .step-km { background: linear-gradient(135deg, #6366f1, #4f46e5); width: 100%; }
-  .step-m  { background: linear-gradient(135deg, #06b6d4, #0284c7); width: 92%; margin-left: auto; }
-  .step-dm { background: linear-gradient(135deg, #10b981, #059669); width: 84%; margin-left: auto; }
-  .step-cm { background: linear-gradient(135deg, #f59e0b, #d97706); width: 76%; margin-left: auto; }
-  .step-mm { background: linear-gradient(135deg, #ec4899, #db2777); width: 68%; margin-left: auto; }
+  .step-km  { background: linear-gradient(135deg, #4f46e5, #3730a3); width: 100%; }
+  .step-hm  { background: linear-gradient(135deg, #7c3aed, #5b21b6); width: 95%; margin-left: auto; }
+  .step-dam { background: linear-gradient(135deg, #2563eb, #1d4ed8); width: 90%; margin-left: auto; }
+  .step-m   { background: linear-gradient(135deg, #0891b2, #0e7490); width: 85%; margin-left: auto; }
+  .step-dm  { background: linear-gradient(135deg, #059669, #047857); width: 80%; margin-left: auto; }
+  .step-cm  { background: linear-gradient(135deg, #d97706, #b45309); width: 75%; margin-left: auto; }
+  .step-mm  { background: linear-gradient(135deg, #db2777, #be185d); width: 70%; margin-left: auto; }
 
   .step-left {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 14px;
   }
 
   .step-icon {
-    font-size: 2.3rem;
+    font-size: 2rem;
     background: rgba(255,255,255,0.2);
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -176,29 +186,29 @@
 
   .step-title {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .step-desc {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     opacity: 0.95;
   }
 
   .step-badge {
-    background: rgba(255,255,255,0.25);
-    padding: 8px 14px;
-    border-radius: 14px;
+    background: rgba(255,255,255,0.22);
+    padding: 6px 12px;
+    border-radius: 12px;
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-align: right;
+    white-space: nowrap;
   }
 
   /* Jump Connectors */
   .jump-row {
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
-    margin: -6px 20px;
+    margin: -5px 25px;
     z-index: 2;
   }
 
@@ -206,16 +216,16 @@
     background: #fef3c7;
     color: #b45309;
     border: 2px solid #f59e0b;
-    padding: 4px 12px;
+    padding: 2px 12px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 800;
     box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    animation: pulse 2s infinite;
+    animation: pulse 2.2s infinite;
   }
 
   .detail-box {
-    margin-top: 25px;
+    margin-top: 22px;
     background: #f8fafc;
     border: 2px dashed #cbd5e1;
     border-radius: 20px;
@@ -227,7 +237,7 @@
   .detail-box h3 {
     font-family: 'Fredoka', sans-serif;
     color: var(--primary);
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 8px;
   }
 
@@ -308,7 +318,7 @@
 
   input[type="number"], select {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     padding: 10px 15px;
     border-radius: 14px;
     border: 2px solid #c7d2fe;
@@ -318,14 +328,14 @@
 
   .result-display {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     color: var(--primary);
     margin-top: 10px;
-    padding: 12px;
+    padding: 12px 20px;
     background: white;
     border-radius: 14px;
     display: inline-block;
-    min-width: 260px;
+    min-width: 280px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
 
@@ -356,23 +366,23 @@
 
   .question-text {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     margin-bottom: 25px;
     color: var(--text);
   }
 
   .options-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
-    max-width: 650px;
+    max-width: 680px;
     margin: 0 auto;
   }
 
   .option-btn {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.25rem;
-    padding: 18px;
+    font-size: 1.2rem;
+    padding: 16px;
     border: 3px solid #e2e8f0;
     border-radius: 18px;
     background: white;
@@ -402,7 +412,7 @@
 
   .feedback-msg {
     margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 800;
     min-height: 32px;
   }
@@ -438,7 +448,7 @@
 
   @keyframes bounceSlow {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    50% { transform: translateY(-4px); }
   }
 
   @keyframes wiggle {
@@ -475,9 +485,9 @@
     z-index: 999;
   }
 
-  @media (max-width: 650px) {
-    .step-km, .step-m, .step-dm, .step-cm, .step-mm { width: 100%; }
-    h1 { font-size: 1.9rem; }
+  @media (max-width: 700px) {
+    .step-km, .step-hm, .step-dam, .step-m, .step-dm, .step-cm, .step-mm { width: 100%; }
+    h1 { font-size: 1.85rem; }
   }
 </style>
 </head>
@@ -487,19 +497,23 @@
 
 <div class="container">
   <header>
-    <h1>🚀 Aroosh's Metric Adventure</h1>
-    <div class="subtitle">From giant <strong>Kilometers (km)</strong> down to tiny <strong>Millimeters (mm)</strong>!</div>
+    <h1>🚀 Aroosh's Complete Metric Ladder</h1>
+    <div class="subtitle">All 7 steps from <strong>Kilometers (km)</strong> down to <strong>Millimeters (mm)</strong>!</div>
   </header>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('ladder', this)">🪜 1. The Metric Ladder</button>
+    <button class="tab-btn active" onclick="switchTab('ladder', this)">🪜 1. The 7-Step Ladder</button>
     <button class="tab-btn" onclick="switchTab('examples', this)">🥞 2. Breakfast & Examples</button>
     <button class="tab-btn" onclick="switchTab('quiz', this)">🏆 3. Aroosh's Quiz</button>
   </div>
 
-  <!-- TAB 1: THE METRIC LADDER -->
+  <!-- TAB 1: THE FULL 7-STEP METRIC LADDER -->
   <div id="ladder" class="tab-content active">
-    <p class="ladder-intro">Click on any step of the ladder to inspect how big it is!</p>
+    <p class="ladder-intro">Every single step down multiplies by <strong>10</strong>! Click any step to learn more:</p>
+
+    <div class="mnemonic-banner">
+      🧠 <strong>Memory Trick:</strong> <u>K</u>ing <u>H</u>enry <u>D</u>anced <u>M</u>errily <u>D</u>own <u>C</u>enter <u>M</u>ain (<strong>km – hm – dam – m – dm – cm – mm</strong>)
+    </div>
 
     <div class="ladder-wrapper">
       <!-- KM -->
@@ -508,27 +522,55 @@
           <div class="step-icon">🚗</div>
           <div>
             <div class="step-title">Kilometer (km)</div>
-            <div class="step-desc">For long car trips & airplane paths</div>
+            <div class="step-desc">Long car trips & airplane paths</div>
           </div>
         </div>
-        <div class="step-badge">1 km = 1,000 m</div>
+        <div class="step-badge">1 km = 10 hm</div>
       </div>
 
-      <div class="jump-row"><span class="jump-pill">⬇️ × 1,000 (Add 3 zeros!)</span></div>
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
+
+      <!-- HM -->
+      <div class="step-card step-hm" onclick="showDetail('hm')">
+        <div class="step-left">
+          <div class="step-icon">🏟️</div>
+          <div>
+            <div class="step-title">Hectometer (hm)</div>
+            <div class="step-desc">Length of a big soccer stadium (100 m)</div>
+          </div>
+        </div>
+        <div class="step-badge">1 hm = 10 dam</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
+
+      <!-- DAM -->
+      <div class="step-card step-dam" onclick="showDetail('dam')">
+        <div class="step-left">
+          <div class="step-icon">🚌</div>
+          <div>
+            <div class="step-title">Decameter (dam)</div>
+            <div class="step-desc">Length of a school bus (10 m)</div>
+          </div>
+        </div>
+        <div class="step-badge">1 dam = 10 m</div>
+      </div>
+
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
 
       <!-- M -->
       <div class="step-card step-m" onclick="showDetail('m')">
         <div class="step-left">
           <div class="step-icon">🚪</div>
           <div>
-            <div class="step-title">Meter (m)</div>
-            <div class="step-desc">Height of a door or a big step</div>
+            <div class="step-title">Meter (m) — Base Unit</div>
+            <div class="step-desc">Height of a door or a guitar</div>
           </div>
         </div>
-        <div class="step-badge">1 m = 10 dm = 100 cm</div>
+        <div class="step-badge">1 m = 10 dm</div>
       </div>
 
-      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
 
       <!-- DM -->
       <div class="step-card step-dm" onclick="showDetail('dm')">
@@ -536,13 +578,13 @@
           <div class="step-icon">📱</div>
           <div>
             <div class="step-title">Decimeter (dm)</div>
-            <div class="step-desc">About the width of your hand or a phone</div>
+            <div class="step-desc">Width of your hand or a smartphone</div>
           </div>
         </div>
         <div class="step-badge">1 dm = 10 cm</div>
       </div>
 
-      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
 
       <!-- CM -->
       <div class="step-card step-cm" onclick="showDetail('cm')">
@@ -556,7 +598,7 @@
         <div class="step-badge">1 cm = 10 mm</div>
       </div>
 
-      <div class="jump-row"><span class="jump-pill">⬇️ × 10 (Add 1 zero!)</span></div>
+      <div class="jump-row"><span class="jump-pill">⬇️ × 10</span></div>
 
       <!-- MM -->
       <div class="step-card step-mm" onclick="showDetail('mm')">
@@ -564,16 +606,16 @@
           <div class="step-icon">🐜</div>
           <div>
             <div class="step-title">Millimeter (mm)</div>
-            <div class="step-desc">Tiny! Thickness of a coin or a small ant</div>
+            <div class="step-desc">Thickness of a coin or a tiny ant</div>
           </div>
         </div>
-        <div class="step-badge">Smallest step here!</div>
+        <div class="step-badge">Smallest step!</div>
       </div>
     </div>
 
     <div class="detail-box" id="detail-box">
-      <h3>👆 Tap any step above!</h3>
-      <p>Every time you step <strong>down</strong> from m → dm → cm → mm, you multiply by <strong>10</strong>. Going from km → m is a giant leap of <strong>1,000</strong>!</p>
+      <h3>👆 Tap any of the 7 steps above!</h3>
+      <p>Notice how smooth the ladder is now: <strong>every single step down is × 10</strong> (add one zero), and <strong>every single step up is ÷ 10</strong> (remove one zero)!</p>
     </div>
   </div>
 
@@ -584,15 +626,15 @@
       <div>
         <h3 style="font-family: 'Fredoka', sans-serif; color: #b45309; font-size: 1.35rem;">Aroosh's Breakfast Discovery!</h3>
         <p style="margin-top: 4px; font-size: 1.05rem;">
-          This morning before breakfast, Aroosh spotted a super math secret: <strong>150 mm = 15 cm</strong>! 
-          Because <strong>10 mm = 1 cm</strong>, dividing by 10 (chopping off one zero) turns millimeters into centimeters!
+          While waiting for breakfast, Aroosh spotted a great math pattern: <strong>150 mm = 15 cm</strong>! 
+          Because <strong>cm</strong> is one step above <strong>mm</strong> on the ladder, you divide by 10 (chop off one zero)!
         </p>
       </div>
     </div>
 
     <div class="visual-ruler-box">
       <h3 style="font-family: 'Fredoka', sans-serif; color: #334155;">📏 Look at Aroosh's 15 cm Ruler</h3>
-      <p style="font-size: 0.95rem; color: #64748b;">Every 1 cm block has 10 tiny millimeter lines inside it!</p>
+      <p style="font-size: 0.95rem; color: #64748b;">Every 1 cm block holds 10 tiny millimeters inside it!</p>
       <div class="ruler">
         <div class="tick-group"><span class="tick-label">0 cm<br>(0 mm)</span><div class="tick-line"></div></div>
         <div class="tick-group"><span class="tick-label">3 cm<br>(30 mm)</span><div class="tick-line"></div></div>
@@ -604,12 +646,14 @@
     </div>
 
     <div class="converter-box">
-      <h3 style="font-family: 'Fredoka', sans-serif; color: var(--primary); font-size: 1.4rem;">🔮 Magic Metric Machine</h3>
-      <p>Type any number to see how it changes across units!</p>
+      <h3 style="font-family: 'Fredoka', sans-serif; color: var(--primary); font-size: 1.4rem;">🔮 Magic 7-Unit Converter</h3>
+      <p>Pick any two units from the ladder and watch the zeros move!</p>
       <div class="converter-controls">
         <input type="number" id="conv-input" value="150" oninput="convertUnits()">
         <select id="conv-from" onchange="convertUnits()">
           <option value="km">Kilometers (km)</option>
+          <option value="hm">Hectometers (hm)</option>
+          <option value="dam">Decameters (dam)</option>
           <option value="m">Meters (m)</option>
           <option value="dm">Decimeters (dm)</option>
           <option value="cm">Centimeters (cm)</option>
@@ -618,6 +662,8 @@
         <span style="font-weight: 800; font-size: 1.2rem;">➡️</span>
         <select id="conv-to" onchange="convertUnits()">
           <option value="km">Kilometers (km)</option>
+          <option value="hm">Hectometers (hm)</option>
+          <option value="dam">Decameters (dam)</option>
           <option value="m">Meters (m)</option>
           <option value="dm">Decimeters (dm)</option>
           <option value="cm" selected>Centimeters (cm)</option>
@@ -631,7 +677,7 @@
   <!-- TAB 3: QUIZ -->
   <div id="quiz" class="tab-content">
     <div class="quiz-header">
-      <span id="q-progress" style="font-weight: 800; color: #475569;">Question 1 of 6</span>
+      <span id="q-progress" style="font-weight: 800; color: #475569;">Question 1 of 7</span>
       <span class="score-badge">⭐ Score: <span id="q-score">0</span></span>
     </div>
 
@@ -653,27 +699,35 @@
     btn.classList.add('active');
   }
 
-  // Ladder Details
+  // Ladder Details for all 7 steps
   const details = {
     km: {
-      title: "🚗 Kilometer (km) — The Giant Explorer",
-      text: "1 km = 1,000 meters! If you walk for about 12 minutes, you walk 1 kilometer. Cars measure highway distances in km."
+      title: "🚗 Kilometer (km) — 1,000 Meters",
+      text: "1 km = 10 hm = 100 dam = 1,000 m! 'Kilo' means one thousand. Used for measuring distances between cities."
+    },
+    hm: {
+      title: "🏟️ Hectometer (hm) — 100 Meters",
+      text: "1 hm = 10 dam = 100 m! 'Hecto' means one hundred. A full-size soccer field is right around 1 hectometer long!"
+    },
+    dam: {
+      title: "🚌 Decameter (dam) — 10 Meters",
+      text: "1 dam = 10 m! 'Deca' means ten (just like a decade is 10 years). A big yellow school bus is about 1 decameter long!"
     },
     m: {
-      title: "🚪 Meter (m) — The Everyday Standard",
-      text: "1 m = 10 dm = 100 cm = 1,000 mm! A standard doorway is about 2 meters tall, and a guitar is about 1 meter long."
+      title: "🚪 Meter (m) — The Base Unit (1 Meter)",
+      text: "1 m = 10 dm = 100 cm = 1,000 mm! Everything on the ladder is built around the meter."
     },
     dm: {
-      title: "📱 Decimeter (dm) — The Handy Bridge",
-      text: "1 dm = 10 cm = 100 mm! 'Deci' means one-tenth. Ten decimeters make 1 whole meter!"
+      title: "📱 Decimeter (dm) — One-Tenth of a Meter",
+      text: "1 dm = 10 cm = 100 mm! 'Deci' means one-tenth. Ten decimeters stacked together equal 1 meter!"
     },
     cm: {
-      title: "🖍️ Centimeter (cm) — School Ruler Favorite",
-      text: "1 cm = 10 mm! Your pinky fingernail is about 1 cm wide. A new pencil is around 18 cm long."
+      title: "🖍️ Centimeter (cm) — One-Hundredth of a Meter",
+      text: "1 cm = 10 mm! 'Centi' means one-hundredth (like 100 cents in a dollar). Your fingernail is about 1 cm wide."
     },
     mm: {
-      title: "🐜 Millimeter (mm) — Tiny Precision",
-      text: "10 mm = 1 cm! A stack of 10 sheets of paper or a credit card is about 1 millimeter thick."
+      title: "🐜 Millimeter (mm) — One-Thousandth of a Meter",
+      text: "10 mm = 1 cm! 'Milli' means one-thousandth. A credit card or 10 stacked pages of paper is about 1 mm thick."
     }
   };
 
@@ -684,9 +738,11 @@
     box.style.background = "#eef2ff";
   }
 
-  // Converter Logic
+  // Converter Logic (all 7 units)
   const toMeters = {
     km: 1000,
+    hm: 100,
+    dam: 10,
     m: 1,
     dm: 0.1,
     cm: 0.01,
@@ -709,7 +765,7 @@
     resBox.innerText = `${val.toLocaleString()} ${from} = ${converted.toLocaleString()} ${to}`;
   }
 
-  // Quiz Data
+  // Quiz Data (7 questions including hm and dam)
   const questions = [
     {
       q: "🥞 Warm-up: Just like Aroosh discovered this morning, 150 mm is equal to how many cm?",
@@ -718,39 +774,45 @@
       fact: "Spot on! 150 ÷ 10 = 15 cm!"
     },
     {
-      q: "🚗 How many meters (m) are inside 1 kilometer (km)?",
+      q: "🚌 A school bus is 1 decameter (dam) long. How many meters (m) is 1 dam?",
+      options: ["10 m", "100 m", "1,000 m", "0.1 m"],
+      answer: 0,
+      fact: "Awesome! 'Deca' means 10, so 1 dam = 10 meters!"
+    },
+    {
+      q: "🏟️ A soccer field is 1 hectometer (hm) long. How many meters (m) is 1 hm?",
       options: ["10 m", "100 m", "1,000 m", "10,000 m"],
-      answer: 2,
-      fact: "Awesome! 'Kilo' always means 1,000!"
+      answer: 1,
+      fact: "Goal! 'Hecto' means 100, so 1 hm = 100 meters!"
+    },
+    {
+      q: "🚗 How many hectometers (hm) are inside 1 kilometer (km)?",
+      options: ["10 hm", "100 hm", "1,000 hm", "5 hm"],
+      answer: 0,
+      fact: "Yes! Hectometer is just one step below Kilometer, so 1 km = 10 hm!"
     },
     {
       q: "📱 How many centimeters (cm) make 1 decimeter (dm)?",
       options: ["10 cm", "50 cm", "100 cm", "1,000 cm"],
       answer: 0,
-      fact: "Yes! 1 dm = 10 cm!"
+      fact: "Correct! 1 dm = 10 cm!"
     },
     {
-      q: "🐜 A tiny ladybug is 8 mm long. How many mm are in 3 cm?",
-      options: ["3 mm", "30 mm", "300 mm", "3,000 mm"],
+      q: "🐜 A tiny ant is 5 mm long. How many mm are in 4 cm?",
+      options: ["4 mm", "40 mm", "400 mm", "4,000 mm"],
       answer: 1,
-      fact: "Great job! Since 1 cm = 10 mm, 3 cm = 30 mm!"
+      fact: "Great job! Since 1 cm = 10 mm, 4 cm = 40 mm!"
     },
     {
-      q: "🚪 A door is 2 meters (m) tall. How many centimeters (cm) is that?",
-      options: ["20 cm", "200 cm", "2,000 cm", "20,000 cm"],
-      answer: 1,
-      fact: "Boom! 1 m = 100 cm, so 2 m = 200 cm!"
-    },
-    {
-      q: "🚀 Master Challenge: Which order goes from BIGGEST to SMALLEST?",
+      q: "🚀 Master Challenge: Which list shows ALL 7 units from BIGGEST to SMALLEST?",
       options: [
-        "mm → cm → dm → m → km",
-        "km → m → cm → dm → mm",
-        "km → m → dm → cm → mm",
-        "m → km → dm → cm → mm"
+        "km → dam → hm → m → dm → cm → mm",
+        "km → hm → dam → m → dm → cm → mm",
+        "mm → cm → dm → m → dam → hm → km",
+        "km → hm → m → dam → cm → dm → mm"
       ],
-      answer: 2,
-      fact: "Champion! km → m → dm → cm → mm is the exact metric ladder!"
+      answer: 1,
+      fact: "Champion! km → hm → dam → m → dm → cm → mm is the complete 7-step ladder!"
     }
   ];
 
@@ -818,7 +880,7 @@
       <div style="font-size: 4rem; margin-bottom: 10px;">🏆</div>
       <h2 style="font-family: 'Fredoka', sans-serif; color: var(--primary); font-size: 2rem;">Way to go, Aroosh!</h2>
       <p style="font-size: 1.3rem; margin: 15px 0;">You scored <strong>${score} out of ${questions.length}</strong>!</p>
-      <p style="color: #64748b; margin-bottom: 25px;">You have officially mastered the Metric Ladder from Kilometers to Millimeters!</p>
+      <p style="color: #64748b; margin-bottom: 25px;">You have officially mastered all 7 steps from Kilometers to Millimeters!</p>
       <button class="next-btn" style="display:inline-block;" onclick="restartQuiz()">Play Again 🔄</button>
     `;
   }
@@ -836,18 +898,18 @@
     loadQuestion();
   }
 
-  // Simple Confetti Effect
+  // Confetti Effect
   function launchConfetti() {
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const pieces = Array.from({ length: 60 }, () => ({
+    const pieces = Array.from({ length: 65 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height - canvas.height,
       size: Math.random() * 8 + 5,
-      color: ['#4f46e5', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random() * 5)],
+      color: ['#4f46e5', '#7c3aed', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random() * 6)],
       speed: Math.random() * 4 + 2
     }));
 
